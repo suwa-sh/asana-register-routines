@@ -84,17 +84,17 @@ asanaへ定期的にタスクを登録するGoogleスプレッドシートスク
 
 
 ## インストール
-1. [スプレッドシート](https://drive.google.com/open?id=1eM1vpZ9BzRgWn_dR1PYmDL6BmNWlhusaYXkR6OmwA5c)を、マイドライブにコピー
+1. [スプレッドシート](https://drive.google.com/open?id=1H3qpNcqDK_AeSlZRiq0z6mUZu1BJurEG7s0Cn3PhDsk)を、マイドライブにコピー
 
 1. 設定反映
 
     1. スプレッドシート.settingsシート.personal_access_token に [asanaのパーソナルアクセストークン](https://asana.com/guide/help/api/api) を記入
     
-    1. スプレッドシート.メニュー.'【asana連携】.asana --> ユーザ情報を更新する'
+    1. スプレッドシート.メニュー.【asana連携】.'asana --> ユーザ情報を更新する'
     
     1. スプレッドシート.settingシート.workspace を選択
     
-    1. スプレッドシート.メニュー.'【asana連携】.asana --> マスターデータを一括更新する'
+    1. スプレッドシート.メニュー.【asana連携】.'asana --> マスターデータを一括更新する'
   
 1. 定期実行登録
 
