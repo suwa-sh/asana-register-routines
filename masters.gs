@@ -15,7 +15,7 @@ function syncUserInfo(auth) {
   var range= sheet.getRange(1, 1);
 
   // ユーザー情報反映
-  range.offset(2, 1).setValue(result.data.id);
+  range.offset(2, 1).setValue(result.data.id + "");
   range.offset(3, 1).setValue(result.data.name);
   range.offset(4, 1).setValue(result.data.email);
   
@@ -44,7 +44,7 @@ function syncWorkspaces(auth) {
   for(var i = 0; i < result.data.workspaces.length; i++) {
     Logger.log("-- " + result.data.workspaces[i].name);
     range.offset(i + 1, 0).setValue(result.data.workspaces[i].name);
-    range.offset(i + 1, 1).setValue(result.data.workspaces[i].id);
+    range.offset(i + 1, 1).setValue(result.data.workspaces[i].id + "");
   }
 }
 
@@ -70,7 +70,7 @@ function syncUsers(auth) {
   for(var i = 0; i < result.data.length; i++) {
     Logger.log("-- " + result.data[i].name);
     range.offset(i + 1, 0).setValue(result.data[i].name);
-    range.offset(i + 1, 1).setValue(result.data[i].id);
+    range.offset(i + 1, 1).setValue(result.data[i].id + "");
     range.offset(i + 1, 2).setValue(result.data[i].email);
   }
 }
@@ -96,7 +96,7 @@ function syncMemberships(auth) {
   var curRowNum = 0;
   for(var i = 0; i < projectsResult.data.length; i++) {
     var curProjectName = projectsResult.data[i].name;
-    var curProjectId = projectsResult.data[i].id;
+    var curProjectId = projectsResult.data[i].id + "";
     Logger.log("-- " + curProjectName);
     
     // プロジェクト反映
@@ -111,7 +111,7 @@ function syncMemberships(auth) {
     
     for (var j = 0; j < sectionsResult.data.length; j++) {
       var curSectionName = sectionsResult.data[j].name;
-      var curSectionId = sectionsResult.data[j].id;
+      var curSectionId = sectionsResult.data[j].id + "";
       Logger.log("---- " + curSectionName);
       
       // セクション反映
@@ -143,6 +143,6 @@ function syncTags(auth) {
   for(var i = 0; i < result.data.length; i++) {
     Logger.log("-- " + result.data[i].name);
     range.offset(i + 1, 0).setValue(result.data[i].name);
-    range.offset(i + 1, 1).setValue(result.data[i].id);
+    range.offset(i + 1, 1).setValue(result.data[i].id + "");
   }
 }
