@@ -84,7 +84,7 @@ asanaへ定期的にタスクを登録するGoogleスプレッドシートスク
 
 
 ## インストール
-1. [スプレッドシート](https://drive.google.com/open?id=1H3qpNcqDK_AeSlZRiq0z6mUZu1BJurEG7s0Cn3PhDsk)を、マイドライブにコピー
+1. [スプレッドシート](https://docs.google.com/spreadsheets/d/1pftQnO6LNyHg5pd7455kVPcMKbsoZqglujedikruxnY/copy)を、マイドライブにコピー
 
 1. 設定反映
 
