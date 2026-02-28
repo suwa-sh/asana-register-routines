@@ -1,0 +1,9 @@
+# clasp credentials
+.clasprc.json
+
+# Node.js
+node_modules/
+
+# Logs
+logs/
+*.log
