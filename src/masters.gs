@@ -15,7 +15,7 @@ function syncUserInfo(auth) {
   var range= sheet.getRange(1, 1);
 
   // ユーザー情報反映
-  range.offset(2, 1).setValue(result.data.id + "");
+  range.offset(2, 1).setValue(result.data.gid + "");
   range.offset(3, 1).setValue(result.data.name);
   range.offset(4, 1).setValue(result.data.email);
   
@@ -44,8 +44,11 @@ function syncWorkspaces(auth) {
   for(var i = 0; i < result.data.workspaces.length; i++) {
     Logger.log("-- " + result.data.workspaces[i].name);
     range.offset(i + 1, 0).setValue(result.data.workspaces[i].name);
-    range.offset(i + 1, 1).setValue(result.data.workspaces[i].id + "");
+    range.offset(i + 1, 1).setValue(result.data.workspaces[i].gid + "");
   }
+
+  // ワークスペース マスターキャッシュ更新
+  workspacesCache = parseCache(SHEETNAME_MST_WORKSPACES);
 }
 
 function syncUsers(auth) {
@@ -70,18 +73,23 @@ function syncUsers(auth) {
   for(var i = 0; i < result.data.length; i++) {
     Logger.log("-- " + result.data[i].name);
     range.offset(i + 1, 0).setValue(result.data[i].name);
-    range.offset(i + 1, 1).setValue(result.data[i].id + "");
+    range.offset(i + 1, 1).setValue(result.data[i].gid + "");
     range.offset(i + 1, 2).setValue(result.data[i].email);
   }
+
+  // ユーザ マスターキャッシュ更新
+  usersCache = parseCache(SHEETNAME_MST_USERS);
 }
 
 
 function syncMemberships(auth) {
   Logger.log("syncMemberships");
 
+  var workspaceId = workspacesCache[settingsCache.workspace];
+
   // プロジェクト一覧取得
   var params = {'headers' : auth};
-  var apiUrl = "https://app.asana.com/api/1.0/projects"
+  var apiUrl = "https://app.asana.com/api/1.0/projects?workspace=" + workspaceId
   var response = UrlFetchApp.fetch(apiUrl, params)
   var projectsResult = JSON.parse(response.getContentText());
   
@@ -96,7 +104,7 @@ function syncMemberships(auth) {
   var curRowNum = 0;
   for(var i = 0; i < projectsResult.data.length; i++) {
     var curProjectName = projectsResult.data[i].name;
-    var curProjectId = projectsResult.data[i].id + "";
+    var curProjectId = projectsResult.data[i].gid + "";
     Logger.log("-- " + curProjectName);
     
     // プロジェクト反映
@@ -111,7 +119,7 @@ function syncMemberships(auth) {
     
     for (var j = 0; j < sectionsResult.data.length; j++) {
       var curSectionName = sectionsResult.data[j].name;
-      var curSectionId = sectionsResult.data[j].id + "";
+      var curSectionId = sectionsResult.data[j].gid + "";
       Logger.log("---- " + curSectionName);
       
       // セクション反映
@@ -120,15 +128,20 @@ function syncMemberships(auth) {
       range.offset(curRowNum, 1).setValue(curSectionId);
     }
   }
+
+  // メンバーシップ マスターキャッシュ更新
+  membershipsCache = parseCache(SHEETNAME_MST_MEMBERSHIPS);
 }
 
 
 function syncTags(auth) {
   Logger.log("syncTags");
 
+  var workspaceId = workspacesCache[settingsCache.workspace];
+
   // タグ一覧取得
   var params = {'headers' : auth};
-  var apiUrl = "https://app.asana.com/api/1.0/tags"
+  var apiUrl = "https://app.asana.com/api/1.0/workspaces/" + workspaceId + "/tags"
   var response = UrlFetchApp.fetch(apiUrl, params)
   var result = JSON.parse(response.getContentText());
   
@@ -143,6 +156,9 @@ function syncTags(auth) {
   for(var i = 0; i < result.data.length; i++) {
     Logger.log("-- " + result.data[i].name);
     range.offset(i + 1, 0).setValue(result.data[i].name);
-    range.offset(i + 1, 1).setValue(result.data[i].id + "");
+    range.offset(i + 1, 1).setValue(result.data[i].gid + "");
   }
+
+  // タグ マスターキャッシュ更新
+  tagsCache = parseCache(SHEETNAME_MST_TAGS);
 }
